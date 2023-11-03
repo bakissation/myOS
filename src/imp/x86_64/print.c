@@ -1,4 +1,4 @@
-#include "print.h"
+#include "int/print.h"
 
 // The number of columns on the screen.
 const static size_t NUM_COLS = 80;

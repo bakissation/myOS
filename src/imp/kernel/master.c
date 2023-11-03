@@ -1,13 +1,29 @@
-#include "print.h"
+#include "int/print.h"
+#include "syscalls/fork.h"
 
-// This function is the entry point for the kernel.
-void kernel_main() {
-  // Clear the screen.
-  print_clear();
+void main() {
+    print_str("Hello from the parent process! My PID is ");
+    print_char(getpid());
+    print_char("\n");
 
-  // Set the text color to yellow on black.
-  print_set_color(PRINT_COLOR_YELLOW, PRINT_COLOR_BLACK);
+    int pid = fork();
 
-  // Print a welcome message.
-  print_str("Welcome to my 64-bit kernel!");
+    if (pid == 0) {
+        // Child process code
+        print_str("Hello from the child process! My PID is ");
+        print_char(getpid());
+        print_char("\n");
+    } else if (pid > 0) {
+        // Parent process code
+        print_str("Back in the parent process with PID ");
+        print_char(getpid());
+        print_char("\n");
+        wait(NULL);
+    } else {
+        // Error
+        print_str("Error creating child process.\n");
+        exit(1);
+    }
+
+    exit(0);
 }

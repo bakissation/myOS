@@ -1,16 +1,15 @@
-#include <unistd.h>
-#include <sys/types.h>
+typedef long pid_t;
 
 pid_t fork(void) {
-  pid_t pid = vfork();
-  if (pid == 0) {
-    // Child process.
-    return pid;
-  } else if (pid > 0) {
-    // Parent process.
-    return pid;
-  } else {
-    // Error.
-    return -1;
-  }
+    pid_t pid = vfork();
+    if (pid == 0) {
+        // Child process code
+        return 0;
+    } else if (pid > 0) {
+        // Parent process code
+        return pid;
+    } else {
+        // Error
+        return -1;
+    }
 }
